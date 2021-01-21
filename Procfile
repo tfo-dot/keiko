@@ -1,1 +1,1 @@
-web: deno run -A --cached-only --no-check mod.ts
+web: deno run --allow-net=:${PORT} --cached-only app.ts --port=${PORT}
