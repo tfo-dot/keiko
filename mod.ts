@@ -1,5 +1,4 @@
 import { Client } from "./deps.ts";
-import { serve } from "https://deno.land/std@0.84.0/http/server.ts";
 
 let debug = [...Deno.readDirSync("./")].find((entry) =>
   entry.name == "token.ts"
@@ -15,9 +14,21 @@ setInterval(
   5 * 60 * 1000,
 );
 
-const server = serve({ hostname: "0.0.0.0", port: 80 });
-console.log(`HTTP webserver running.  Access it at:  http://localhost:80/`);
+import { serve } from "https://deno.land/std@0.83.0/http/server.ts";
+import * as flags from "https://deno.land/std@0.83.0/flags/mod.ts";
 
-for await (const request of server) {
-  request.respond({ status: 200, body: "Bonjour!" });
+const DEFAULT_PORT = 8080;
+const argPort = flags.parse(Deno.args).port;
+const port = argPort ? Number(argPort) : DEFAULT_PORT;
+
+if (isNaN(port)) {
+  console.error("Port is not a number.");
+  Deno.exit(1);
+}
+
+const s = serve({ port: port });
+console.log("http://localhost:" + port);
+
+for await (const req of s) {
+  req.respond({ body: "Hello World\n" });
 }
