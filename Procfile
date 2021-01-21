@@ -1,1 +1,1 @@
-web: deno run --allow-net mod.ts
+web: deno run --allow-net --cached-only mod.ts
