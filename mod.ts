@@ -8,3 +8,8 @@ let Keiko = new Client({ hotreload: true, prefix: "=", debug: !!debug });
 let token = debug ? (await import(`./token.ts`)).token : Deno.env.get("TOKEN");
 
 Keiko.login(token);
+
+setInterval(
+  () => fetch("https://keiko-assistant.herokuapp.com/"),
+  5 * 60 * 1000,
+);
