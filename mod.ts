@@ -1,9 +1,9 @@
 import { Client } from "./deps.ts";
 
-let debug = [...Deno.readDirSync("./")].find((entry) =>
+let debug = !![...Deno.readDirSync("./")].find((entry) =>
   entry.name == "token.ts"
 );
-let Keiko = new Client({ hotreload: true, prefix: "keiko!", debug: !!debug });
+let Keiko = new Client({ hotreload: true, prefix: debug ? "=" : "keiko!", debug });
 
 let token = debug ? (await import(`./token.ts`)).token : Deno.env.get("TOKEN");
 
