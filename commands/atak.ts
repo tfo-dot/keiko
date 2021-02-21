@@ -15,17 +15,12 @@ export default {
         `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
       );
     }
+    const ulvl = msg.stringReader.readInt()
+    const lvl = ulvl <= 0 ? 1 : ulvl;
+    const dmg = genRandom(0, lvl * 15) + lvl * 15 + msg.stringReader.readInt();
+    const okay = genRandom(0, 40) + msg.stringReader.readInt();
 
-    let lvl = msg.stringReader.readInt() - 1;
-    if (lvl < 0) {
-      return msg.reply(
-        `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Poziom nie może być mniejszy od 0\``,
-      );
-    }
-    let dmg = genRandom(0, lvl * 15) + lvl * 15 + msg.stringReader.readInt();
-    let okay = genRandom(0, 40) + msg.stringReader.readInt();
-
-    let embed = new EmbedBuilder().title("No siemka");
+    const embed = new EmbedBuilder().title("No siemka");
     if (okay >= 15) {
       return msg.reply(
         new EmbedBuilder().title("No siemka").field(
