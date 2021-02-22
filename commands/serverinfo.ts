@@ -1,10 +1,9 @@
 import { Client, CommandisMessage, EmbedBuilder } from "../deps.ts";
-import { genRandom } from "../utils.ts";
 
 export default {
     name: "serverinfo",
     description: "Informacje o serwerze",
-    category: "4Fun",
+    category: "Inne",
     help: new EmbedBuilder().title("No siemka").field(
         "Użycie:",
         "`keiko!serverinfo`",

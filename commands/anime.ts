@@ -8,6 +8,7 @@ export default {
         "Użycie:",
         "`keiko!anime <nazwa>`",
     ).field("Ogólny opis", "Pokazuj informacje o mandze!"),
+    category: "Weeb",
     run: async (client: Client, msg: CommandisMessage) => {
         let name = msg.stringReader.getRemaing().trim();
 
