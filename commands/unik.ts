@@ -9,18 +9,20 @@ export default {
     "Użycie komendy",
     "`keiko!unik <unik> <dmg> <pancerz>`",
   ).field("Ogólny opis:", "Licze ile dostałeś w tyłek od ataku podstawowego!"),
-  run: async (client: Client, msg: CommandisMessage) => {
-    // if (msg.guild && msg.guild.id != "749007879150895105") {
-    //   return msg.reply(
-    //     `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
-    //   );
-    // }
+  run: (client: Client, msg: CommandisMessage) => {
+    if (msg.guild && msg.guild.id != "749007879150895105") {
+      return msg.reply(
+        `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
+      );
+    }
 
     let snek = msg.stringReader.readInt();
     let dmg = msg.stringReader.readInt();
     let armor = msg.stringReader.readInt();
 
     let okay = genRandom(1, 100);
+
+    console.log(snek, dmg, armor)
 
     if (okay > snek) {
       if (armor > 0) {
@@ -29,10 +31,8 @@ export default {
       msg.reply(
         new EmbedBuilder().title("No siemka").field(
           "Informacje:",
-          `[${
-            Math.floor(okay / 2.5)
-          }] Niestety, unik się nie udał...\n Otrzymałeś od życia ${
-            Math.floor(dmg)
+          `[${Math.floor(okay / 2.5)
+          }] Niestety, unik się nie udał...\n Otrzymałeś od życia ${Math.floor(dmg)
           } w tyłek`,
         ).color("#ff0000"),
       );
