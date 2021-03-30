@@ -1,1 +1,1 @@
-deno run -A mod.ts
+deno run -A --no-check mod.ts
