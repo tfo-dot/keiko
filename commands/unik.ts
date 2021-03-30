@@ -20,9 +20,10 @@ export default {
     let dmg = msg.stringReader.readInt();
     let armor = msg.stringReader.readInt();
 
-    let okay = genRandom(1, 100);
+    //80 - 100% żeby lekko zmniejszyć dmg
+    dmg = dmg * (0.8 + genRandom(0, 20) / 10)
 
-    console.log(snek, dmg, armor)
+    let okay = genRandom(1, 100);
 
     if (okay > snek) {
       if (armor > 0) {
