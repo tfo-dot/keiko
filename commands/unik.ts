@@ -21,7 +21,7 @@ export default {
     let armor = msg.stringReader.readInt();
 
     //80 - 100% żeby lekko zmniejszyć dmg
-    dmg = dmg * (0.8 + genRandom(0, 20) / 10)
+    dmg = dmg * (0.8 + (genRandom(0, 20) / 10))
 
     let okay = genRandom(1, 100);
 
