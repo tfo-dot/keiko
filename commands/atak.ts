@@ -11,12 +11,11 @@ export default {
   ).field("Ogólny opis", "Licze obrażenia ataku podstawowego"),
   run: (client: Client, msg: CommandisMessage | SlashCommandAtak) => {
 
-    if (!(msg as CommandisMessage).data) { }
-    if ((msg as CommandisMessage).guild && (msg as CommandisMessage).guild?.id != "749007879150895105") {
-      return (msg as CommandisMessage).reply(
-        `<@${(msg as CommandisMessage).author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
-      );
-    }
+    // if ((msg as CommandisMessage).guild && (msg as CommandisMessage).guild?.id != "749007879150895105") {
+    //   return (msg as CommandisMessage).reply(
+    //     `<@${(msg as CommandisMessage).author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
+    //   );
+    // }
     const ulvl = !(msg as CommandisMessage).stringReader ? msg.lvl : ((msg as CommandisMessage).stringReader.readInt())
     const lvl = ulvl <= 0 ? 1 : ulvl;
     const okay = genRandom(0, 40) + (!(msg as CommandisMessage).stringReader ? msg.okayModif : ((msg as CommandisMessage).stringReader.readInt()))
@@ -48,7 +47,7 @@ export default {
     }
 
     if ((msg as CommandisMessage).data) {
-      (msg as CommandisMessage).reply(embed)
+      (msg as CommandisMessage).reply(embed.end())
     }
 
     return embed
