@@ -20,7 +20,7 @@ export default {
     const lvl = ulvl <= 0 ? 1 : ulvl;
     const okay = genRandom(0, 40) + (!(msg as CommandisMessage).stringReader ? msg.okayModif : ((msg as CommandisMessage).stringReader.readInt()))
     const aDmg = !(msg as CommandisMessage).stringReader ? msg.addDmg : ((msg as CommandisMessage).stringReader.readInt())
-    let dmg = genRandom(0, (lvl - 1) * 5) + (lvl - 1) * 5 + aDmg + 30;
+    let dmg = genRandom(0, (lvl - 1) * 5) + (lvl - 1) * 10 + aDmg + 30;
 
     const crit = !(msg as CommandisMessage).stringReader ? msg.crit : ((msg as CommandisMessage).stringReader.readInt())
     const critVal = !(msg as CommandisMessage).stringReader ? msg.critMulti : ((msg as CommandisMessage).stringReader.readInt())
