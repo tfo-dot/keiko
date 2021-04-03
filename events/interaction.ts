@@ -19,7 +19,7 @@ export default {
 
             interaction.reply({
                 embeds: [response.end()],
-                content: `Parametry: poziom: ${interactionData.lvl}, modyfikator: ${interactionData.okayModif}, dodatkowe AD: ${interactionData.addDmg}, krytyczne: ${interactionData.crit}, mnożnik: ${interactionData.critMulti}, drugi atak: ${interactionData.second}`,
+                content: `Parametry: poziom: ${interactionData.lvl}, modyfikator: ${interactionData.okayModif}, dodatkowe AD: ${interactionData.addDmg}, krytyczne: ${interactionData.crit}, mnożnik: ${interactionData.critMulti}`,
                 flags: 0
             })
         }
