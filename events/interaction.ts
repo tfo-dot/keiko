@@ -12,8 +12,7 @@ export default {
                 okayModif: (~~JSON.stringify(data.find(elt => elt.name == "modyfikator")?.value)) ?? 0,
                 addDmg: (~~JSON.stringify(data.find(elt => elt.name == "obrażenia")?.value)) ?? 0,
                 crit: (~~JSON.stringify(data.find(elt => elt.name == "krytyczne")?.value)) ?? 0,
-                critMulti: (~~JSON.stringify(data.find(elt => elt.name == "mnożnik")?.value)) ?? 0,
-                second: (~~JSON.stringify(data.find(elt => elt.name == "second")?.value)) ?? 0
+                critMulti: (~~JSON.stringify(data.find(elt => elt.name == "mnożnik")?.value)) ?? 0
             }
 
             let response = (await ((await import("../commands/atak.ts")).default.run(client, interactionData))) as EmbedBuilder

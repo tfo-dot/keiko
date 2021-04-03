@@ -36,12 +36,7 @@ export default {
           name: "mnożnik",
           type: 4,
           description: "Mnożnik krytycznego", required: false
-        },
-        {
-          name: "second",
-          type: 4,
-          description: "Szansa na drugie uderzenie", required: false
-        },
+        }
       ],
     }, "749007879150895105"); // Reborn
   }

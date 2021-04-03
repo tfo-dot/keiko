@@ -7,7 +7,7 @@ export default {
   category: "Roleplay",
   help: new EmbedBuilder().title("No siemka").field(
     "Użycie:",
-    "`keiko!atak <poziom> [modyfikator] [dodatkowe obrażenia] [krytyczne] [wartość krytycznego] [drugi atak]`",
+    "`keiko!atak <poziom> [modyfikator] [dodatkowe obrażenia] [krytyczne] [wartość krytycznego]`",
   ).field("Ogólny opis", "Licze obrażenia ataku podstawowego"),
   run: (client: Client, msg: CommandisMessage | SlashCommandAtak) => {
 
@@ -24,19 +24,15 @@ export default {
 
     const crit = !(msg as CommandisMessage).stringReader ? msg.crit : ((msg as CommandisMessage).stringReader.readInt())
     const critVal = !(msg as CommandisMessage).stringReader ? msg.critMulti : ((msg as CommandisMessage).stringReader.readInt())
-    const second = !(msg as CommandisMessage).stringReader ? msg.second : ((msg as CommandisMessage).stringReader.readInt())
-
     const goCrit = genRandom(0, 100) > crit && crit > 0 || crit == 100;
-    const goSecond = genRandom(0, 100) > second && second > 0 || second == 100;
 
     if (goCrit) dmg *= critVal <= 0 ? 2 : critVal / 100;
-    if (goSecond) dmg *= 2;
 
     let embed = new EmbedBuilder().title("No siemka");
     if (okay >= 15) {
       embed = embed.field(
         "Informacje:",
-        `[${okay}] Trafiłeś${goCrit ? " krytycznie" : ""}${goSecond ? " podwójnie" : ""}, zadałeś ${dmg} obrażeń.`,
+        `[${okay}] Trafiłeś${goCrit ? " krytycznie" : ""}, zadałeś ${dmg} obrażeń.`,
       ).color("#00ff00")
     } else {
       embed = embed.field(
@@ -59,6 +55,5 @@ export interface SlashCommandAtak {
   okayModif: number,
   addDmg: number,
   crit: number,
-  critMulti: number,
-  second: number
+  critMulti: number
 }
