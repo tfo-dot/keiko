@@ -12,9 +12,9 @@ export default {
     "Do tej komendy potrzebny jest kanał **`nsfw`**",
   ),
   run: async (client: Client, msg: CommandisMessage) => {
-    if (!msg.channel.nsfw) {
+    if (!msg.channel.data.nsfw) {
       return msg.reply(
-        `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Kanał nie jest kanałem nsfw\``,
+        `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Kanał nie jest kanałem nsfw\``,
       );
     }
 

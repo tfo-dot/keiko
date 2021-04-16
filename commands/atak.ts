@@ -9,21 +9,21 @@ export default {
     "Użycie:",
     "`keiko!atak <poziom> [modyfikator] [dodatkowe obrażenia] [krytyczne] [wartość krytycznego]`",
   ).field("Ogólny opis", "Licze obrażenia ataku podstawowego"),
-  run: (client: Client, msg: CommandisMessage | SlashCommandAtak) => {
+  run: (client: Client, msg: CommandisMessage) => {
 
-    if ((msg as CommandisMessage).guild && (msg as CommandisMessage).guild?.id != "749007879150895105") {
-      return (msg as CommandisMessage).reply(
-        `<@${(msg as CommandisMessage).author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
+    if (msg.guild && msg.guild.data.id != "749007879150895105") {
+      return msg.reply(
+        `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
       );
     }
-    const ulvl = !(msg as CommandisMessage).stringReader ? msg.lvl : ((msg as CommandisMessage).stringReader.readInt())
+    const ulvl = msg.stringReader.readInt()
     const lvl = ulvl <= 0 ? 1 : ulvl;
-    const okay = genRandom(0, 40) + (!(msg as CommandisMessage).stringReader ? msg.okayModif : ((msg as CommandisMessage).stringReader.readInt()))
-    const aDmg = !(msg as CommandisMessage).stringReader ? msg.addDmg : ((msg as CommandisMessage).stringReader.readInt())
+    const okay = genRandom(0, 40) + msg.stringReader.readInt()
+    const aDmg = msg.stringReader.readInt()
     let dmg = genRandom(0, (lvl - 1) * 5) + (lvl - 1) * 10 + aDmg + 30;
 
-    const crit = !(msg as CommandisMessage).stringReader ? msg.crit : ((msg as CommandisMessage).stringReader.readInt())
-    const critVal = !(msg as CommandisMessage).stringReader ? msg.critMulti : ((msg as CommandisMessage).stringReader.readInt())
+    const crit = msg.stringReader.readInt()
+    const critVal = msg.stringReader.readInt()
     const goCrit = genRandom(0, 100) > crit && crit > 0 || crit == 100;
 
     if (goCrit) dmg *= critVal <= 0 ? 2 : critVal / 100;
@@ -42,18 +42,8 @@ export default {
         .color("#ff0000")
     }
 
-    if ((msg as CommandisMessage).data) {
-      (msg as CommandisMessage).reply(embed.end())
-    }
+    msg.reply(embed)
 
     return embed
   }
 };
-
-export interface SlashCommandAtak {
-  lvl: number,
-  okayModif: number,
-  addDmg: number,
-  crit: number,
-  critMulti: number
-}

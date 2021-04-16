@@ -14,7 +14,7 @@ export default {
 
         if (name.length < 0) {
             return msg.reply(
-                `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Brak nazwy anime\``,
+                `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Brak nazwy anime\``,
             );
         }
 
@@ -34,7 +34,7 @@ export default {
 
         if (res.errors && res.errors.length > 0) {
             return msg.reply(
-                `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`${res.errors[0].message}\``,
+                `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`${res.errors[0].message}\``,
             );
         }
 

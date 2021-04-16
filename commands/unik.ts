@@ -10,11 +10,11 @@ export default {
     "`keiko!unik <unik> <dmg> <pancerz>`",
   ).field("Ogólny opis:", "Licze ile dostałeś w tyłek od ataku podstawowego!"),
   run: (client: Client, msg: CommandisMessage) => {
-    // if (msg.guild && msg.guild.id != "749007879150895105") {
-    //   return msg.reply(
-    //     `<@${msg.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
-    //   );
-    // }
+    if (msg.guild && msg.guild.data.id != "749007879150895105") {
+      return msg.reply(
+        `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Komenda nie jest wykonywana na serwerze SAO:Reborn\``,
+      );
+    }
 
     let snek = msg.stringReader.readInt();
     let dmg = msg.stringReader.readInt();
