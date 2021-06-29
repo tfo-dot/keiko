@@ -1,4 +1,4 @@
-import { CommandisMessage, EmbedBuilder, Client } from "../deps.ts";
+import { CommandContext, EmbedBuilder, Client, CommandParameterType } from "../deps.ts";
 import { graphql } from "../utils.ts";
 
 export default {
@@ -9,14 +9,10 @@ export default {
         "`keiko!anime <nazwa>`",
     ).field("Ogólny opis", "Pokazuj informacje o mandze!"),
     category: "Weeb",
-    run: async (client: Client, msg: CommandisMessage) => {
-        let name = msg.stringReader.getRemaing().trim();
+    parameters: [{ name: "name", type: CommandParameterType.STRING }],
+    run: async (client: Client, ctx: CommandContext) => {
 
-        if (name.length < 0) {
-            return msg.reply(
-                `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Brak nazwy anime\``,
-            );
-        }
+        const name = ctx.args[0].value
 
         let req = fetch("https://graphql.anilist.co", {
             headers: {
@@ -33,8 +29,8 @@ export default {
         var res = (await req.then(resp => resp.json()));
 
         if (res.errors && res.errors.length > 0) {
-            return msg.reply(
-                `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`${res.errors[0].message}\``,
+            return ctx.reply(
+                `<@${ctx.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`${res.errors[0].message}\``,
             );
         }
 
@@ -45,7 +41,7 @@ export default {
             .field("NSFW?", data.isAdult ? "Tak" : "Nie", true).field("Jak inaczej to nazwać?", data.synonyms.join(", "), true)
             .field("Data pierwszego odcinka:", `${data.startDate.day}.${data.startDate.month}.${data.startDate.year}`, true)
             .field("Studia:", data.studios.nodes.map((elt: any) => elt.name).join(", "), true)
-        msg.reply(embed)
+        ctx.reply(embed)
 
     }
 }

@@ -1,10 +1,10 @@
-import { Client, CommandisMessage, EmbedBuilder } from "../deps.ts";
+import { Client, CommandContext, EmbedBuilder } from "../deps.ts";
 
 export default {
   name: "info",
   description: "Ogólne informacje o keiko!",
   category: "Inne",
-  run: async (client: Client, msg: CommandisMessage) => {
+  run: async (client: Client, msg: CommandContext) => {
     msg.reply(
       new EmbedBuilder().title(`Witaj przybyszu!`).field(
         "Troszkę o mnie!",

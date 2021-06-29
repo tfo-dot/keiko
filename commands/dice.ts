@@ -1,6 +1,5 @@
-import { Client, CommandisMessage, EmbedBuilder } from "../deps.ts";
+import { Client, CommandContext, CommandParameterType, EmbedBuilder } from "../deps.ts";
 import { genRandom } from "../utils.ts";
-
 export default {
     name: "dice",
     description: "Losu losu losu",
@@ -9,11 +8,15 @@ export default {
         "Użycie:",
         "`keiko!atak <maksymalne> [minimalne]`",
     ).field("Ogólny opis", "Bawię się maszyną losującą"),
-    run: (client: Client, msg: CommandisMessage) => {
+    parameters: [
+        { name: "max", type: CommandParameterType.INT },
+        { name: "min", type: CommandParameterType.INT, default: 0 }
+    ],
+    run: (client: Client, ctx: CommandContext) => {
 
-        const max = msg.stringReader.readInt()
-        const min = msg.stringReader.readInt()
-        return msg.reply(
+        const max = Math.abs(ctx.args[0].value)
+        const min = Math.abs(ctx.args[1].value)
+        return ctx.reply(
             new EmbedBuilder().title("No siemka").field(
                 "Informacje:",
                 `Wylosowałam: __***\`${genRandom(min, max)}\`***__.`,

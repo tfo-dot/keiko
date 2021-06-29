@@ -1,4 +1,4 @@
-import { Client, CommandisMessage, EmbedBuilder } from "../deps.ts";
+import { Client, CommandContext, CommandParameterType, EmbedBuilder } from "../deps.ts";
 
 export default {
   name: "booru",
@@ -11,23 +11,24 @@ export default {
     "Dodatkowe informacje:",
     "Do tej komendy potrzebny jest kanał **`nsfw`**",
   ),
-  run: async (client: Client, msg: CommandisMessage) => {
-    if (!msg.channel.data.nsfw) {
-      return msg.reply(
-        `<@${msg.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Kanał nie jest kanałem nsfw\``,
+  parameters: [{ name: "rest", type: CommandParameterType.REST }],
+  run: async (client: Client, ctx: CommandContext) => {
+    if (!ctx.channel.data.nsfw) {
+      return ctx.reply(
+        `<@${ctx.data.author.id}>, sorka ale coś poszło nie tak, szczegóły: \`Kanał nie jest kanałem nsfw\``,
       );
     }
 
     let data = await (await fetch(
-      `https://cure.ninja/booru/api/json?q=${msg.stringReader.getRemaing().trim()}&f=s&o=r`,
+      `https://cure.ninja/booru/api/json?q=${ctx.args[0].value.trim()}&f=s&o=r`,
     )).json();
 
     if (!data.total) {
-      msg.reply(
+      ctx.reply(
         "Emmm... Bo... No... Nie ma tego... Sorki! Spróbuj wyszukać coś innego!",
       );
     } else {
-      msg.reply(
+      ctx.reply(
         new EmbedBuilder().title("Patrz co mam!").image(data.results[0].url),
       );
     }

@@ -1,11 +1,10 @@
 import {
   Client,
-  CommandisMessage,
+  CommandContext,
+  CommandParameterType,
   EmbedBuilder,
-  EntityType,
-  User,
+  StringReader
 } from "../deps.ts";
-
 export default {
   name: "avatar",
   description: "Pokazuje profilowe użytkownika",
@@ -20,20 +19,20 @@ export default {
     "Dodatkowe informacje:",
     "Zamiast oznaczać użytkownika możesz po prostu wpisać jego id na przykład moje to `622783718783844356`",
   ),
-  run: (client: Client, msg: CommandisMessage) => {
+  parameters: [{ name: "test", type: CommandParameterType.STRING, default: "" }],
+  run: (client: Client, ctx: CommandContext) => {
     let sendAvatar = async (id: string) => {
-      let user = await client.get(EntityType.USER, id) as User;
-      msg.reply(
+      let user = await client.users.get(id, true)
+      ctx.reply(
         new EmbedBuilder().title("No siemka").field(
-          `${user.username}#${user.discriminator}`,
+          `${user.data.username}#${user.data.discriminator}`,
           `[Zobacz tutaj](${user.avatar()})`,
         ).image(user.avatar()),
       );
     };
 
-    if (!msg.mentions[0]) {
-      let id = msg.stringReader.readWord();
-      return sendAvatar(id ? id : msg.author.id);
-    } else return sendAvatar(msg.mentions[0].id);
+    if (!ctx.data.mentions[0]) {
+      return sendAvatar(ctx.args[0].value ? ctx.args[0].value : ctx.data.author.id);
+    } else return sendAvatar(ctx.data.mentions[0].id);
   },
 };
