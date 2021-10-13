@@ -10,7 +10,6 @@ export default class UnikCommand extends Command {
     { name: "dmg", defaultValue: 0 } as ContentArgument,
     { name: "armor", defaultValue: 0 } as ContentArgument,
   ];
-  whitelistedGuilds = "749007879150895105";
 
   execute(ctx: CommandContext) {
     const snek = ctx.args!["dodge"] as number;

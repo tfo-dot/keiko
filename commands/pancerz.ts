@@ -4,8 +4,7 @@ export default class PancerzCommand extends Command {
   name = "pancerz";
   description = "Atak dla SAO:Reborn";
   category = "Roleplay";
-  args = [{ name: "pancerz", defaultValue: 0 } as ContentArgument];
-  whitelistedGuilds = "749007879150895105";
+  args = [{ name: "pancerz", defaultValue: 0 } as ContentArgument]
 
   execute(ctx: CommandContext) {
     ctx.message.reply(

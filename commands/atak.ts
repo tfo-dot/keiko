@@ -6,8 +6,6 @@ export default class AtakCommand extends Command {
   description = "Atak dla SAO:Reborn";
   category = "Roleplay";
 
-  whitelistedGuilds = "749007879150895105";
-
   args = [
     { name: "lvl", defaultValue: 1 } as ContentArgument,
     { name: "modif", defaultValue: 0 } as ContentArgument,
