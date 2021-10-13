@@ -1,13 +1,29 @@
-import { Client } from "./deps.ts";
+import { CommandClient, CommandContext, Intents } from "./deps.ts";
 
-let debug = !![...Deno.readDirSync("./")].find((entry) =>
+const debug = !![...Deno.readDirSync("./")].find((entry) =>
   entry.name == "token.ts"
 );
-let Keiko = new Client({ hotreload: true, prefix: debug ? "=" : "keiko!", debug });
+const Keiko = new CommandClient({ prefix: debug ? "=" : "keiko!" });
 
-let token = debug ? (await import(`./token.ts`)).token : Deno.env.get("TOKEN");
+const token = debug
+  ? (await import(`./token.ts`)).token
+  : Deno.env.get("TOKEN");
 
-Keiko.login(token);
+await Keiko.commands.loader.loadDirectory("./commands");
+
+Keiko.on("debug", console.log);
+
+Keiko.on("ready", () => {
+  console.log(`[Login] Logged in as ${Keiko.user?.tag}!`);
+});
+
+Keiko.on(
+  "commandError",
+  (ctx: CommandContext, err: Error) =>
+    console.log(`${ctx} errored with '${err.message}'`),
+);
+
+Keiko.connect(token, Intents.NonPrivileged);
 
 setInterval(
   () => fetch("https://keiko-assistant.herokuapp.com/"),

@@ -1,26 +1,23 @@
-import { Client, CommandContext, CommandParameterType, EmbedBuilder } from "../deps.ts";
-import { genRandom } from "../utils.ts";
-export default {
-    name: "dice",
-    description: "Losu losu losu",
-    category: "4Fun",
-    help: new EmbedBuilder().title("No siemka").field(
-        "Użycie:",
-        "`keiko!atak <maksymalne> [minimalne]`",
-    ).field("Ogólny opis", "Bawię się maszyną losującą"),
-    parameters: [
-        { name: "max", type: CommandParameterType.INT },
-        { name: "min", type: CommandParameterType.INT, default: 0 }
-    ],
-    run: (client: Client, ctx: CommandContext) => {
+import { Command, CommandContext, ContentArgument, Embed } from "../deps.ts";
 
-        const max = Math.abs(ctx.args[0].value)
-        const min = Math.abs(ctx.args[1].value)
-        return ctx.reply(
-            new EmbedBuilder().title("No siemka").field(
-                "Informacje:",
-                `Wylosowałam: __***\`${genRandom(min, max)}\`***__.`,
-            ).color("#00ff00"),
-        );
-    },
-};
+import { genRandom } from "../utils.ts";
+export default class DiceCOmmand extends Command {
+  name = "dice";
+  description = "Losu losu losu";
+  category = "4Fun";
+  args = [
+    { name: "max" } as ContentArgument,
+    { name: "min", defaultValue: 0 } as ContentArgument,
+  ];
+  execute(ctx: CommandContext) {
+    const max = Math.abs(ctx.args!["max"] as number);
+    const min = Math.abs(ctx.args!["min"] as number);
+
+    return ctx.message.reply({
+      embed: new Embed().setTitle("No siemka").addField(
+        "Informacje:",
+        `Wylosowałam: __***\`${genRandom(min, max)}\`***__.`,
+      ).setColor("#00ff00"),
+    });
+  }
+}
